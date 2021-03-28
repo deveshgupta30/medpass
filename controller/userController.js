@@ -1,5 +1,7 @@
 import User from "../model/userModel.js";
 import { loginSchema, registerSchema } from "../util/validation.js";
+import { createAccessToken, decodeToken } from "../util/token.js";
+import mongoose from "mongoose";
 
 const loginUser = async (req, res, next) => {
   try {
@@ -60,12 +62,20 @@ const registerUser = async (req, res, next) => {
       throw new Error("Another user already exist with this email ");
       return;
     }
+    console.log(mongoose.connection.readyState);
+    // let a = new User({ name, email, password })
+    //   .then((user) => user.save())
+    //   .then((doc) => console.log(doc))
+    //   .catch((err) => console.log(err));
+    // const user = new User({ name, email, password });
+    // await user.save();
     const user = await User.create({ name, email, password });
     const accessToken = await createAccessToken(
       user._id,
       user.email,
       user.role
     );
+    console.log({ accessToken });
     // decode the access token to send expiry time to the client
     const decodedAccessToken = await decodeToken(
       accessToken,
