@@ -4,7 +4,7 @@ import Login from "./Login";
 import Signup from "./Signup";
 
 function Home() {
-  return <div className="text-6xl">404</div>;
+  return <div className="text-6xl">404 Error Not Found</div>;
 }
 
 export default function App() {

@@ -16,7 +16,7 @@ const Login = () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
       });
-      console.log("HELLO");
+      console.log("User Logged In");
       const resData = await res.json();
       setLoading(false);
       setData(resData);
@@ -45,7 +45,7 @@ const Login = () => {
     <div className="h-screen flex bg-gray-bg1">
       <div className="w-full max-w-md m-auto bg-white rounded-lg border border-primaryBorder shadow-default py-10 px-16">
         <h1 className="text-2xl font-medium text-primary mt-4 mb-12 text-center">
-          Log inecaragx5f3
+          Log in
         </h1>
 
         <form onSubmit={handleFormSubmit}>
@@ -68,8 +68,8 @@ const Login = () => {
               className={`w-full p-2 text-primary border rounded-md outline-none text-sm transition duration-150 ease-in-out mb-4`}
               id="password"
               placeholder="Password"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               required
             />
           </div>
