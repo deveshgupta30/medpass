@@ -31,9 +31,9 @@ const Signup = () => {
     }
   };
 
-  useLayoutEffect(() => {
-    document.body.style.backgroundColor = "#f1efef";
-  }, []);
+  // useLayoutEffect(() => {
+  //   document.body.style.backgroundColor = "#f1efef";
+  // }, []);
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
@@ -113,6 +113,7 @@ const Signup = () => {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
+                    autoComplete="off"
                   />
                 </div>
                 <div className="w-full md:w-full px-3 mb-1">

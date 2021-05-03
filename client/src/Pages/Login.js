@@ -1,20 +1,33 @@
-import { useState, useLayoutEffect, useContext } from "react";
-import { Link } from "react-router-dom";
+import { useState, useLayoutEffect, useContext,useEffect } from "react";
+import { Link, Redirect,useHistory,useLocation } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import Logo from "../Components/Logo";
 import { AuthContext } from "../Context/AuthContext";
 
 const Login = () => {
-  const { setAuthState } = useContext(AuthContext);
+  const { authState,setAuthState,isAuthenticated } = useContext(AuthContext);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
+  const history = useHistory();
+  const location =useLocation()
+  const redirect= location.search ? location.search.split('=')[1] : '/'
+
   useLayoutEffect(() => {
     document.body.style.backgroundColor = "#f1efef";
   }, []);
+
+
+
+  useEffect(() => {
+    if (isAuthenticated()) {
+      history.push(redirect);
+    }
+  }, [isAuthenticated()]);
+
 
   const login = async (email, password) => {
     try {
@@ -28,7 +41,6 @@ const Login = () => {
       const resData = await res.json();
       setLoading(false);
       setAuthState(resData);
-      console.log(resData);
     } catch (err) {
       console.log(err);
       setLoading(false);
@@ -41,16 +53,9 @@ const Login = () => {
     login(email, password);
   };
 
-  // if (loading) {
-  //   return <div className="text-4xl">LOADINGGGGGGGGGGGGGGGGGGGGGGG</div>;
-  // }
-
-  // if (error) {
-  //   return <div className="text-4xl">ERRORRRRRRRRRRRRRRRRRRRRRRRRR</div>;
-  // }
-
   return (
     <>
+      {isAuthenticated() && <Redirect to='/dashboard' />}
       <Helmet>
         <title>Login | MedPass</title>
       </Helmet>
@@ -105,7 +110,8 @@ const Login = () => {
                     id="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    required
+                    required 
+                    autoComplete="off"
                   />
                 </div>
                 <div className="w-full md:w-full px-3 mb-1">

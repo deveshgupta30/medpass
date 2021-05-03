@@ -1,8 +1,13 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Helmet } from "react-helmet";
 import Navbar from "../Components/Navbar";
+import { AuthContext } from "../Context/AuthContext";
 
 const Dashboard = () => {
+  const { authState } = useContext(AuthContext);
+
+  const { userInfo } = authState;
+
   return (
     <>
       <Helmet>
@@ -14,10 +19,10 @@ const Dashboard = () => {
           <div className="flex items-center mt-3 max-w-lg rounded overflow-hidden">
             <div className="pl-6 pr-1 py-4">
               <p className="font-semibold text-3xl mb-2">
-                Hello<span></span>!
+                Hello <span>{userInfo.name ? userInfo.name : ""}</span>!
+                <span className="text-2xl">👋</span>&nbsp;
               </p>
             </div>
-            <img height="28px" width="28px" alt="Wave Hand" src="" />
           </div>
         </div>
       </div>

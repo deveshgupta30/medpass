@@ -1,37 +1,37 @@
-import { useEffect, useState, createContext } from "react";
+import {  useState, createContext } from "react";
 import { useHistory } from "react-router-dom";
 
-export const AuthContext = createContext({});
+export const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
   const history = useHistory();
 
-  const token = localStorage.getItem("token");
+  const accessToken = localStorage.getItem("accessToken");
   const userInfo = localStorage.getItem("userInfo");
-  const expiresAt = localStorage.getItem("expiresAt");
+  const  accessExpiresAt= localStorage.getItem("accessExpiresAt");
   const [authState, setAuthState] = useState({
-    token,
-    expiresAt,
+    accessToken,
+    accessExpiresAt,
     userInfo: userInfo ? JSON.parse(userInfo) : {},
   });
 
-  const setAuthInfo = ({ token, userInfo, expiresAt }) => {
-    localStorage.setItem("token", token);
+  const setAuthInfo = ({ accessToken, userInfo, accessExpiresAt }) => {
+    localStorage.setItem("accessToken", accessToken);
     localStorage.setItem("userInfo", JSON.stringify(userInfo));
-    localStorage.setItem("expiresAt", expiresAt);
+    localStorage.setItem("accessExpiresAt", accessExpiresAt);
 
     setAuthState({
-      token,
+      accessToken,
       userInfo,
-      expiresAt,
+       accessExpiresAt,
     });
   };
 
   const isAuthenticated = () => {
-    if (!authState.token || !authState.expiresAt) {
+    if (!authState.accessToken || !authState.accessExpiresAt) {
       return false;
     }
-    return new Date().getTime() / 1000 < authState.expiresAt;
+    return new Date().getTime() / 1000 < authState.accessExpiresAt;
   };
 
   const isAdmin = () => {
@@ -39,11 +39,10 @@ const AuthProvider = ({ children }) => {
   };
 
   const logout = () => {
-    localStorage.removeItem("token");
+    localStorage.removeItem("accessToken");
     localStorage.removeItem("userInfo");
-    localStorage.removeItem("expiresAt");
+    localStorage.removeItem("accessExpiresAt");
     setAuthState({});
-    history.push("/login");
   };
 
   return (

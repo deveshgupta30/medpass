@@ -1,9 +1,12 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../Context/AuthContext";
 import Logo from "./Logo";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
+
+  const {logout} = useContext(AuthContext)
 
   return (
     <header>
@@ -33,7 +36,7 @@ const Navbar = () => {
               <Link to="/profile">Profile</Link>
             </li>
             <li className="block ">
-              <button>Logout</button>
+              <button onClick={()=>logout()}>Logout</button>
             </li>
           </ul>
         </nav>
