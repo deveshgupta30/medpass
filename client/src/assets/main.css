@@ -433,12 +433,6 @@ hr {
 
 img {
   border-style: solid;
-user-drag: none; 
-user-select: none;
--moz-user-select: none;
--webkit-user-drag: none;
--webkit-user-select: none;
--ms-user-select: none;
 }
 
 textarea {
@@ -543,6 +537,10 @@ img,
 video {
   max-width: 100%;
   height: auto;
+}
+
+body {
+  font-family: Quicksand, sans-serif;
 }
 
 .container {
@@ -171933,4 +171931,4 @@ video {
   .\32xl\:animate-bounce {
     animation: bounce 1s infinite;
   }
-}
+} ;

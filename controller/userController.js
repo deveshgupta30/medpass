@@ -53,39 +53,57 @@ const loginUser = async (req, res, next) => {
   }
 };
 
-const registerUser = asyncHandler(async (req, res) => {
-  const { name, email, password } = req.body;
-  const userExists = await User.findOne({ email });
-  if (userExists) {
-    res.status(400);
-    throw new Error("User already Exists");
+const registerUser = async (req, res, next) => {
+  try {
+    const result = await registerSchema.validateAsync({ ...req.body });
+    const { email, name, password } = result;
+    const userDoesExist = await User.findOne({ email });
+    if (userDoesExist) {
+      res.status(401);
+      throw new Error("Another user already exist with this email ");
+      return;
+    }
+    console.log(mongoose.connection.readyState);
+    // let a = new User({ name, email, password })
+    //   .then((user) => user.save())
+    //   .then((doc) => console.log(doc))
+    //   .catch((err) => console.log(err));
+    const user = new User({ name, email, password });
+    user.save().then((a) => console.log({ a }));
+    // const user = User.create({ name, email, password });
+    const accessToken = await createAccessToken(
+      user._id,
+      user.email,
+      user.role
+    );
+    console.log({ accessToken });
+    // decode the access token to send expiry time to the client
+    const decodedAccessToken = await decodeToken(
+      accessToken,
+      process.env.ACCESS_TOKEN_SECRET
+    );
+    const { exp: accessExpiresAt } = decodedAccessToken;
+    if (user) {
+      res.json({
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        role: user.role,
+        password: user.password,
+        accessToken,
+        accessExpiresAt,
+      });
+    } else {
+      res.status(400);
+      throw new Error("Invalid user data");
+    }
+  } catch (err) {
+    if (err.isJoi === true) {
+      res.status(422); //Unprocessable Entity  error code 422
+    }
+    console.log(err);
+    next(err);
   }
-  // const user = await User.create({
-  //   name,
-  //   email,
-  //   password,
-  // });
-  const user = new User({ name, email, password });
-
-  await user
-    .save()
-    .then(() => res.json("User added"))
-    .catch((err) => res.status(400).json("Error: " + err));
-
-  if (user) {
-    res.status(201);
-    res.json({
-      _id: user._id,
-      name: user.name,
-      email: user.email,
-      // role: user.isAdmin,
-      // token: generateToken(user._id)
-    });
-  } else {
-    res.status(400);
-    throw new Error("Invalid User Data");
-  }
-  res.json({ name, email, password });
-});
+};
 
 export { loginUser, registerUser };
