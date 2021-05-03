@@ -70,7 +70,7 @@ const Signup = () => {
           <div className="flex justify-center my-2 mx-4 md:mx-0">
             <form
               onSubmit={handleFormSubmit}
-              className="w-full max-w-xl bg-white rounded-lg shadow-md p-6"
+              className="w-full max-w-xl bg-white rounded-lg shadow-md p-6 hover:shadow-xl transition-shadow duration-300"
             >
               <div className="flex flex-wrap -mx-3 mb-6">
                 <div className="w-full md:w-full px-3 pt-4 mb-6">
@@ -118,7 +118,7 @@ const Signup = () => {
                 </div>
                 <div className="w-full md:w-full px-3 mb-1">
                   <button
-                    className="appearance-none block w-full bg-blue-600 text-gray-100 font-bold border border-gray-200 rounded-lg py-3 px-3 leading-tight hover:bg-blue-500 focus:outline-none focus:bg-gray-700 focus:border-gray-500"
+                    className="appearance-none block w-full bg-blue-600 text-gray-100 font-bold border border-gray-200 rounded-lg py-3 px-3 leading-tight hover:bg-blue-500 focus:outline-none focus:bg-gray-700 focus:border-gray-500 transition-colors duration-150"
                     type="submit"
                   >
                     Register

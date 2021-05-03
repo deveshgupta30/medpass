@@ -1,11 +1,11 @@
-import { useState, useLayoutEffect, useContext,useEffect } from "react";
-import { Link, Redirect,useHistory,useLocation } from "react-router-dom";
+import { useState, useLayoutEffect, useContext, useEffect } from "react";
+import { Link, Redirect, useHistory, useLocation } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import Logo from "../Components/Logo";
 import { AuthContext } from "../Context/AuthContext";
 
 const Login = () => {
-  const { authState,setAuthState,isAuthenticated } = useContext(AuthContext);
+  const { authState, setAuthState, isAuthenticated } = useContext(AuthContext);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -13,21 +13,18 @@ const Login = () => {
   const [error, setError] = useState(false);
 
   const history = useHistory();
-  const location =useLocation()
-  const redirect= location.search ? location.search.split('=')[1] : '/'
+  const location = useLocation();
+  const redirect = location.search ? location.search.split("=")[1] : "/";
 
   useLayoutEffect(() => {
     document.body.style.backgroundColor = "#f1efef";
   }, []);
-
-
 
   useEffect(() => {
     if (isAuthenticated()) {
       history.push(redirect);
     }
   }, [isAuthenticated()]);
-
 
   const login = async (email, password) => {
     try {
@@ -55,7 +52,7 @@ const Login = () => {
 
   return (
     <>
-      {isAuthenticated() && <Redirect to='/dashboard' />}
+      {isAuthenticated() && <Redirect to="/dashboard" />}
       <Helmet>
         <title>Login | MedPass</title>
       </Helmet>
@@ -82,7 +79,7 @@ const Login = () => {
           <div className="flex justify-center my-2 mx-4 md:mx-0">
             <form
               onSubmit={handleFormSubmit}
-              className="w-full max-w-xl bg-white rounded-lg shadow-md p-6"
+              className="w-full max-w-xl bg-white rounded-lg shadow-md p-6 hover:shadow-xl transition-shadow duration-300"
             >
               <div className="flex flex-wrap -mx-3 mb-6">
                 <div className="w-full md:w-full px-3 pt-4 mb-6">
@@ -110,13 +107,13 @@ const Login = () => {
                     id="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    required 
+                    required
                     autoComplete="off"
                   />
                 </div>
                 <div className="w-full md:w-full px-3 mb-1">
                   <button
-                    className="appearance-none block w-full bg-blue-600 text-gray-100 font-bold border border-gray-200 rounded-lg py-3 px-3 leading-tight hover:bg-blue-500 focus:outline-none focus:bg-gray-700 focus:border-gray-500"
+                    className="appearance-none block w-full bg-blue-600 text-gray-100 font-bold border border-gray-200 rounded-lg py-3 px-3 leading-tight hover:bg-blue-500 focus:outline-none focus:bg-gray-700 focus:border-gray-500 transition-colors duration-150"
                     type="submit"
                   >
                     Sign in
