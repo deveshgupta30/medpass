@@ -1,19 +1,24 @@
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 
-const userSchema = mongoose.Schema(
+const userSchema = new mongoose.Schema(
   {
+    // userId: { type: String, required: true },
     name: { type: String, required: true },
-    email: { type: String, required: true, unique: true, lowercase: true },
-    password: { type: String, required: true },
-    role: {
-      type: String,
-      enums: ["User", "Admin"],
-      default: "User",
-    },
+    email: { type: String, required: true, lowercase: true, unique: true },
+    password: { type: String, required: true, select: false },
+    role: { type: String, enum: ["User", "Admin"], default: "User" },
   },
   { timestamps: true }
 );
+
+// userSchema.pre("save", async funstion (next) {
+//     try{
+
+//     }catch(err){
+
+//     }
+// })
 
 userSchema.pre("save", async function (next) {
   try {
@@ -28,28 +33,12 @@ userSchema.pre("save", async function (next) {
   }
 });
 
-userSchema.pre("save", function (next) {
-  try {
-    if (!this.isModified("name")) {
-      return next();
-    }
-    const formattedName = this.name
-      .split(" ")
-      .map((name) => name[0].toUpperCase() + name.slice(1))
-      .join(" ");
-    this.name = formattedName;
-  } catch (err) {
-    next(err);
-  }
-});
-
 userSchema.methods.isValidPassword = async function (
   enteredPassword,
   userPassword
 ) {
   try {
     return await bcrypt.compare(enteredPassword, userPassword);
-    // return enteredPassword === userPassword;
   } catch (err) {
     throw err;
   }
@@ -57,4 +46,4 @@ userSchema.methods.isValidPassword = async function (
 
 const User = mongoose.model("User", userSchema);
 
-export default User;
+export { User };

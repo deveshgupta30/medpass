@@ -1,0 +1,13 @@
+{
+    "compilerOptions":{
+        "baseUrl":".",
+        "paths":{
+            "@/config/*":[".backend/config/*"],
+            "@/controller/*":[".backend/controller/*"],
+            "@/middleware/*":[".backend/middleware/*"],
+            "@/model/*":[".backend/model/*"],
+            "@/router/*":[".backend/router/*"],
+            "@/util/*":[".backend/util/*"],
+        }
+    }
+}
