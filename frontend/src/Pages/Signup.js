@@ -1,5 +1,5 @@
 import { useLayoutEffect, useState, useEffect, useContext } from "react";
-import { Link, useHistory, useLocation } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import Logo from "../Components/Logo";
 import { AuthContext } from "../Context/AuthContext";
@@ -11,40 +11,41 @@ const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState({ isError: false, message: "" });
 
   const history = useHistory();
-  // const location = useLocation();
-  // const redirect = location.search ? location.search.split("=")[1] : "/";
 
   useLayoutEffect(() => {
     document.body.style.backgroundColor = "#f1efef";
   }, []);
 
-  useEffect(() => {
-    if (isAuthenticated()) {
-      history.push("/");
-    }
-  }, [isAuthenticated()]);
-
   const signup = async (name, email, password) => {
+    const abortController = new AbortController();
+    const { signal } = abortController;
+
     try {
       setLoading(true);
       const res = await fetch("http://localhost:5000/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, email, password }),
+        signal,
       });
 
       const resData = await res.json();
-      console.log({ resData });
-      setAuthState(resData);
       setLoading(false);
-      console.log(resData);
+      if (res.ok) {
+        setAuthState(resData);
+      }
+      if (!resData.success) {
+        setError({ ...error, isError: true, message: resData.message });
+        abortController.abort();
+      }
     } catch (err) {
-      console.log(err);
+      console.log({ err });
       setLoading(false);
-      setError(true);
+      setError({ ...error, isError: true, message: err.message });
+      abortController.abort();
     }
   };
 
@@ -52,6 +53,12 @@ const Signup = () => {
     e.preventDefault();
     signup(name, email, password);
   };
+
+  useEffect(() => {
+    if (isAuthenticated()) {
+      history.push("/");
+    }
+  }, [isAuthenticated, history]);
 
   return (
     <>
@@ -85,6 +92,11 @@ const Signup = () => {
               onSubmit={handleFormSubmit}
               className="w-full max-w-xl bg-white rounded-lg shadow-md p-6 hover:shadow-xl transition-shadow duration-300"
             >
+              {error.isError && error.message && (
+                <div className="p-4 text-lg bg-red-300 text-red-700 rounded">
+                  {error.message}
+                </div>
+              )}
               <div className="flex flex-wrap -mx-3 mb-6">
                 <div className="w-full md:w-full px-3 pt-4 mb-6">
                   <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">

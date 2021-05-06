@@ -1,4 +1,4 @@
-import {  useState, createContext } from "react";
+import { useState, createContext } from "react";
 import { useHistory } from "react-router-dom";
 
 export const AuthContext = createContext();
@@ -8,7 +8,7 @@ const AuthProvider = ({ children }) => {
 
   const accessToken = localStorage.getItem("accessToken");
   const userInfo = localStorage.getItem("userInfo");
-  const  accessExpiresAt= localStorage.getItem("accessExpiresAt");
+  const accessExpiresAt = localStorage.getItem("accessExpiresAt");
   const [authState, setAuthState] = useState({
     accessToken,
     accessExpiresAt,
@@ -23,7 +23,7 @@ const AuthProvider = ({ children }) => {
     setAuthState({
       accessToken,
       userInfo,
-       accessExpiresAt,
+      accessExpiresAt,
     });
   };
 

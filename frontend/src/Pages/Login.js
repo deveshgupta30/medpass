@@ -1,5 +1,5 @@
 import { useState, useLayoutEffect, useContext, useEffect } from "react";
-import { Link, Redirect, useHistory, useLocation } from "react-router-dom";
+import { Link, useHistory, useLocation } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import Logo from "../Components/Logo";
 import { AuthContext } from "../Context/AuthContext";
@@ -21,22 +21,30 @@ const Login = () => {
   }, []);
 
   const login = async (email, password) => {
+    const abortController = new AbortController();
+    const { signal } = abortController;
     try {
       setLoading(true);
       const res = await fetch("http://localhost:5000/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
+        signal,
       });
-      console.log("User Logged In");
       const resData = await res.json();
       setLoading(false);
-      setAuthState(resData);
-      setError({ ...error, isError: false, message: "" });
+      if (res.ok) {
+        setAuthState(resData);
+      }
+      if (!resData.success) {
+        setError({ ...error, isError: true, message: resData.message });
+        abortController.abort();
+      }
     } catch (err) {
       console.log({ err });
       setLoading(false);
       setError({ ...error, isError: true, message: err.message });
+      abortController.abort();
     }
   };
 
@@ -49,7 +57,7 @@ const Login = () => {
     if (isAuthenticated()) {
       history.push(redirect);
     }
-  }, [isAuthenticated()]);
+  }, [isAuthenticated, history, redirect]);
 
   return (
     <>
@@ -78,15 +86,15 @@ const Login = () => {
           </div>
 
           <div className="flex justify-center my-2 mx-4 md:mx-0">
-            {error.isError && (
-              <div className="p-4 text-lg bg-red-300 text-red-700 ">
-                {error.message}
-              </div>
-            )}
             <form
               onSubmit={handleFormSubmit}
               className="w-full max-w-xl bg-white rounded-lg shadow-md p-6 hover:shadow-xl transition-shadow duration-300"
             >
+              {error.isError && error.message && (
+                <div className="p-4 text-lg bg-red-300 text-red-700 rounded">
+                  {error.message}
+                </div>
+              )}
               <div className="flex flex-wrap -mx-3 mb-6">
                 <div className="w-full md:w-full px-3 pt-4 mb-6">
                   <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">

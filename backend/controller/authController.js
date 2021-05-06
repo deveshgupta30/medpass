@@ -12,7 +12,6 @@ const login = async (req, res, next) => {
       throw new Error("User is not registered");
     }
     const isMatch = await user.isValidPassword(password, user.password);
-    console.log({ isMatch });
     if (user && isMatch) {
       const accessToken = await createAccessToken(
         user._id,

@@ -8,6 +8,7 @@ import connectDb from "./config/db.js";
 import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
 import cors from "cors";
 import { router as authRoutes } from "./router/authRoute.js";
+import { router as profileRoutes } from "./router/profileRouter.js";
 
 dotenv.config();
 
@@ -28,6 +29,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/auth", authRoutes);
+app.use("/profile", profileRoutes);
 
 app.use(notFound);
 app.use(errorHandler);
