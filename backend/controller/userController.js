@@ -23,6 +23,7 @@ const createUserProfile = async (req, res, next) => {
       emergencyNumber,
       emergencyNumber2,
       dateOfBirth,
+      allergies,
     } = req.body;
     const newUserProfile = await UserProfile.create({
       gender,
@@ -33,6 +34,7 @@ const createUserProfile = async (req, res, next) => {
       emergencyNumber,
       emergencyNumber2,
       dateOfBirth,
+      allergies,
     });
     // newUserProfile.userId = req.user._id;
     res.json({ ...newUserProfile._doc });

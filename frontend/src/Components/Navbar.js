@@ -1,12 +1,12 @@
 import { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../Context/AuthContext";
 import Logo from "./Logo";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
 
-  const {logout} = useContext(AuthContext)
+  const { logout } = useContext(AuthContext);
 
   return (
     <header>
@@ -33,10 +33,16 @@ const Navbar = () => {
             }  md:flex flex-col w-full md:flex-row py-3 space-y-5 md:space-y-0  md:space-x-8 md:w-auto`}
           >
             <li className="block ">
-              <Link to="/profile">Profile</Link>
+              <NavLink
+                to="/profile"
+                className="font-medium"
+                activeClassName="font-bold text-blue-500 underline"
+              >
+                Profile
+              </NavLink>
             </li>
             <li className="block ">
-              <button onClick={()=>logout()}>Logout</button>
+              <button onClick={() => logout()}>Logout</button>
             </li>
           </ul>
         </nav>

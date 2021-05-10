@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const userProfileSchema = new mongoose.Schema({
-  userId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+  email: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
   gender: { type: String, enum: ["Male", "Female", "Other"], required: true },
   bloodGroup: {
     type: String,
