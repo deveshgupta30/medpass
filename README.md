@@ -1,7 +1,22 @@
-# supreme-octo-eureka
+# MedPass
+#### Medical Passport System
 
-In the project directory, you can run:
+The project is made using MERN stack. 
 
+In the project directory, you can see two folders:
+- Backend
+- Frontend
+
+In order to prepare to run the project, clone the repository, in terminal: 
+#### `cd medpass`
+
+To install the packages from `package.json`, in terminal run:
+#### `yarn`
+#### `cd frontend`
+#### `yarn`
+#### `cd ..`
+
+Now you can start the project using:
 ### `yarn dev`
 
 Runs the app in the development mode.<br />
