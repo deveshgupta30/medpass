@@ -4,7 +4,7 @@ const Logo = () => {
   return (
     <>
       <img
-        className="h-16 sm:h-16"
+        className="h-16 sm:h-16 w-16 sm:w-16"
         src={"/assets/logo/circle/circle-logo.svg"}
         alt="Logo"
         draggable="false"

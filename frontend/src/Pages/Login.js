@@ -101,7 +101,7 @@ const Login = () => {
                     Email address
                   </label>
                   <input
-                    className="appearance-none block w-full bg-white text-gray-900 font-medium border border-gray-400 rounded-lg py-3 px-3 leading-tight focus:shadow-outline hover:border-blue-500"
+                    className="appearance-none block w-full bg-white text-gray-900 font-medium border border-gray-400 rounded-lg py-3 px-3 leading-tight focus:outline-none hover:border-blue-500"
                     type="email"
                     placeholder="Email ID"
                     id="email"
@@ -115,7 +115,7 @@ const Login = () => {
                     Password
                   </label>
                   <input
-                    className="appearance-none block w-full bg-white text-gray-900 font-medium border border-gray-400 rounded-lg py-3 px-3 leading-tight focus:shadow-outline hover:border-blue-500"
+                    className="appearance-none block w-full bg-white text-gray-900 font-medium border border-gray-400 rounded-lg py-3 px-3 leading-tight focus:outline-none hover:border-blue-500"
                     type="password"
                     placeholder="••••••••"
                     id="password"

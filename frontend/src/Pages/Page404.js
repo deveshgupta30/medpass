@@ -6,7 +6,7 @@ const Page404 = () => {
   return (
     <>
       <Helmet>
-        <title>Error | MedPass</title>
+        <title>Page not found | MedPass</title>
       </Helmet>
       <div
         className="w-full h-full font-quickSand font-medium"

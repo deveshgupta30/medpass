@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
 const userProfileSchema = new mongoose.Schema({
+  userId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
   gender: { type: String, enum: ["Male", "Female", "Other"], required: true },
   bloodGroup: {
     type: String,
@@ -9,10 +10,11 @@ const userProfileSchema = new mongoose.Schema({
   },
   weight: { type: Number },
   height: { type: Number },
-  contactNumber: { type: Number, required: true },
-  emergencyNumber: { type: Number, required: true },
-  emergencyNumber2: { type: Number },
+  contactNumber: { type: String, required: true },
+  emergencyNumber: { type: String, required: true },
+  emergencyNumber2: { type: String },
   dateOfBirth: { type: Date, required: true },
+  allergies: { type: String },
 });
 
 const UserProfile = mongoose.model("UserProfile", userProfileSchema);
