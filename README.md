@@ -1,4 +1,7 @@
-# medpass
+# MedPass
+#### Medical Passport System
+
+The project is made using MERN stack. 
 
 In the project directory, you can run:
 
