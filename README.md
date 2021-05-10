@@ -1,4 +1,4 @@
-# supreme-octo-eureka
+# medpass
 
 In the project directory, you can run:
 
