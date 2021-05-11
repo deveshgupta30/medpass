@@ -8,6 +8,7 @@ In the project directory, you can see two folders:
 - Frontend
 
 In order to prepare to run the project, clone the repository, in terminal: 
+#### `git clone https://github.com/deveshgupta30/medpass.git`
 #### `cd medpass`
 
 To install the packages from `package.json`, in terminal run:
