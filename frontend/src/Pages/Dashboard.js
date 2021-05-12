@@ -3,6 +3,7 @@ import { Helmet } from "react-helmet";
 import Navbar from "../Components/Navbar";
 import { AuthContext } from "../Context/AuthContext";
 import { Link } from "react-router-dom";
+import ImageUploader from "../Components/ImageUploader";
 
 const Dashboard = () => {
   const { authState } = useContext(AuthContext);
@@ -24,13 +25,14 @@ const Dashboard = () => {
                 <div class="w-full">
                   <div class="flex flex-col lg:flex-row mx-auto bg-gradient-to-br from-blue-500 to-blue-900  shadow-xl hover:shadow-2xl transition-shadow duration-300 rounded-xl">
                     <div class=" px-12 flex flex-col items-center py-10">
-                      <div class=" mb-3 p-2 rounded-full bg-gray-200 flex items-center justify-center">
-                        <img
-                          class="w-24 h-24 overflow-hidden object-cover rounded-full"
-                          src="/assets/img/person.svg"
-                          alt="profile pic"
-                          draggable="false"
-                        />
+                      <div class="w-24 h-24 mb-3 p-2 fill-current text-white rounded-full flex items-center justify-center">
+                        <svg
+                          className="w-full h-full fill-current text-white dark:text-blueGray-800 rounded-full"
+                          focusable="false"
+                          viewBox="0 0 24 24"
+                        >
+                          <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"></path>
+                        </svg>
                       </div>
                       <h2 class="text-gray-100  text-xl tracking-normal font-bold mb-1">
                         {userInfo.name ? userInfo.name : ""}

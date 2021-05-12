@@ -7,10 +7,7 @@ import {
 
 const router = Router();
 
-router.route("/").get(requireAuth, (req, res) => {
-  console.log({ user: req.user });
-  res.send("It's profile");
-});
-router.route("/add").post(createUserProfile);
+router.route("/").get(requireAuth, getUserProfile);
+router.route("/add").post(requireAuth, createUserProfile);
 
 export { router };
