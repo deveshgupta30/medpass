@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../Context/AuthContext";
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
@@ -16,8 +16,26 @@ const ProfileForm = ({ userData }) => {
   const {
     register,
     handleSubmit,
+    watch,
+    setValue,
     formState: { errors },
-  } = useForm({ defaultValues: userData });
+  } = useForm({
+    defaultValues: {
+      ...userData,
+      dateOfBirth: new Date(userData.dateOfBirth).toISOString().substr(0, 10),
+    },
+  });
+
+  const [height, weight] = watch(["height", "weight"]);
+  const calculateBmi = (height, weight) => {
+    const h = Number(height) / 100;
+    const w = Number(weight);
+    return Number((w / (h * h)).toFixed(2));
+  };
+
+  useEffect(() => {
+    setValue("bmi", calculateBmi(height, weight));
+  }, [height, weight]);
 
   const onSubmitHandler = (data) => {
     console.log({ data });
@@ -41,7 +59,7 @@ const ProfileForm = ({ userData }) => {
                     />
                   </div>
                   {imageError && <small className="error">{imageError}</small>}
-                  <h3 className="mt-6 text-4xl font-medium break-normal text-gray-900">
+                  <h3 className="mt-6 text-4xl font-medium tracking-wide break-normal text-gray-900">
                     {userInfo.name ? userInfo.name : ""}
                   </h3>
                 </div>
@@ -65,7 +83,7 @@ const ProfileForm = ({ userData }) => {
                               message: "Please enter your name.",
                             },
                           })}
-                          className={` pl-3 py-3 shadow-sm bg-transparent rounded text-sm font-normal focus:outline-none ${
+                          className={` pl-3 py-3 shadow-sm bg-transparent rounded text-sm font-medium tracking-wide  focus:outline-none ${
                             errors.name
                               ? "focus:ring-2 focus:ring-red-300 border border-red-500"
                               : "focus:ring-2 focus:ring-blue-300 border border-blue-500"
@@ -113,9 +131,9 @@ const ProfileForm = ({ userData }) => {
                           </div>
                           <input
                             type="email"
-                            readOnly={false}
+                            disabled={true}
                             {...register("email")}
-                            className="pl-3 py-3 w-full text-sm font-normal placeholder-gray-500 rounded bg-concurrent text-gray-700  focus:outline-none "
+                            className="pl-3 py-3 w-full text-sm font-medium tracking-wide placeholder-gray-500 rounded bg-concurrent text-gray-700  focus:outline-none "
                             placeholder="Email ID"
                           />
                         </div>
@@ -136,7 +154,7 @@ const ProfileForm = ({ userData }) => {
                               message: "Please select your date of birth.",
                             },
                           })}
-                          className={` pl-3 py-3 shadow-sm bg-transparent rounded text-sm font-normal focus:outline-none ${
+                          className={` pl-3 py-3 shadow-sm bg-transparent rounded text-sm font-medium tracking-wide focus:outline-none ${
                             errors.dateOfBirth
                               ? "focus:ring-2 focus:ring-red-300 border border-red-500"
                               : "focus:ring-2 focus:ring-blue-300 border border-blue-500"
@@ -174,7 +192,7 @@ const ProfileForm = ({ userData }) => {
                               message: "Contact number must be of length 10.",
                             },
                           })}
-                          className={` pl-3 py-3 shadow-sm bg-transparent rounded text-sm font-normal focus:outline-none ${
+                          className={` pl-3 py-3 shadow-sm bg-transparent rounded text-sm font-medium tracking-wide focus:outline-none ${
                             errors.contactNumber
                               ? "focus:ring-2 focus:ring-red-300 border border-red-500"
                               : "focus:ring-2 focus:ring-blue-300 border border-blue-500"
@@ -214,7 +232,7 @@ const ProfileForm = ({ userData }) => {
                               message: "Contact number must be of length 10.",
                             },
                           })}
-                          className={` pl-3 py-3 shadow-sm bg-transparent rounded text-sm font-normal focus:outline-none ${
+                          className={` pl-3 py-3 shadow-sm bg-transparent rounded text-sm font-medium tracking-wide focus:outline-none ${
                             errors.emergencyNumber
                               ? "focus:ring-2 focus:ring-red-300 border border-red-500"
                               : "focus:ring-2 focus:ring-blue-300 border border-blue-500"
@@ -249,7 +267,7 @@ const ProfileForm = ({ userData }) => {
                               message: "Contact number must be of length 10.",
                             },
                           })}
-                          className={` pl-3 py-3 shadow-sm bg-transparent rounded text-sm font-normal focus:outline-none ${
+                          className={` pl-3 py-3 shadow-sm bg-transparent rounded text-sm font-medium tracking-wide focus:outline-none ${
                             errors.emergencyNumber2
                               ? "focus:ring-2 focus:ring-red-300 border border-red-500"
                               : "focus:ring-2 focus:ring-blue-300 border border-blue-500"
@@ -280,7 +298,7 @@ const ProfileForm = ({ userData }) => {
                               message: "Please enter your address.",
                             },
                           })}
-                          className={` pl-3 py-3 shadow-sm bg-transparent rounded text-sm font-normal focus:outline-none ${
+                          className={` pl-3 py-3 shadow-sm bg-transparent rounded text-sm font-medium tracking-wide focus:outline-none ${
                             errors.address
                               ? "focus:ring-2 focus:ring-red-300 border border-red-500"
                               : "focus:ring-2 focus:ring-blue-300 border border-blue-500"
@@ -313,7 +331,7 @@ const ProfileForm = ({ userData }) => {
               <div className="md:grid md:grid-cols-3 md:gap-6">
                 <div className="md:col-span-1">
                   <legend className="px-4 sm:px-0">
-                    <h3 className="text-lg font-medium leading-6 text-gray-900">
+                    <h3 className="text-lg font-medium tracking-wide leading-6 text-gray-900">
                       Health Information
                     </h3>
                     <p className="mt-1 text-sm text-gray-600">
@@ -347,7 +365,7 @@ const ProfileForm = ({ userData }) => {
                                   message: "Please select your blood group.",
                                 },
                               })}
-                              className="pl-3 py-3 h-full appearance-none w-full text-sm focus:outline-none border border-transparent focus:border-blue-500 bg-transparent rounded placeholder-gray-500 text-gray-700 "
+                              className="pl-3 py-3 h-full appearance-none w-full text-sm focus:outline-none border border-transparent  bg-transparent rounded placeholder-gray-500 text-gray-700 "
                             >
                               <option value="" className="hidden">
                                 Select Blood Group
@@ -422,7 +440,7 @@ const ProfileForm = ({ userData }) => {
                                   message: "Please select your gender.",
                                 },
                               })}
-                              className="pl-3 py-3 w-full text-sm appearance-none focus:outline-none border border-transparent focus:border-blue-500 bg-transparent rounded placeholder-gray-500 text-gray-700 "
+                              className="pl-3 py-3 w-full text-sm appearance-none focus:outline-none border border-transparent bg-transparent rounded placeholder-gray-500 text-gray-700 "
                             >
                               <option value="" className="hidden">
                                 Select Gender
@@ -486,7 +504,7 @@ const ProfileForm = ({ userData }) => {
                                   message: "Height must be above 0cm.",
                                 },
                               })}
-                              className={` pl-3 py-3 shadow-sm bg-transparent rounded text-sm font-normal focus:outline-none ${
+                              className={` pl-3 py-3 shadow-sm bg-transparent rounded text-sm font-medium tracking-wide focus:outline-none ${
                                 errors.height
                                   ? "focus:ring-2 focus:ring-red-300 border border-red-500"
                                   : "focus:ring-2 focus:ring-blue-300 border border-blue-500"
@@ -521,7 +539,7 @@ const ProfileForm = ({ userData }) => {
                                   message: "Weight must be above 0kg.",
                                 },
                               })}
-                              className={` pl-3 py-3 shadow-sm bg-transparent rounded text-sm font-normal focus:outline-none ${
+                              className={` pl-3 py-3 shadow-sm bg-transparent rounded text-sm font-medium tracking-wide focus:outline-none ${
                                 errors.weight
                                   ? "focus:ring-2 focus:ring-red-300 border border-red-500"
                                   : "focus:ring-2 focus:ring-blue-300 border border-blue-500"
@@ -549,7 +567,8 @@ const ProfileForm = ({ userData }) => {
                             type="number"
                             id="bmi"
                             name="bmi"
-                            readOnly={false}
+                            disabled={true}
+                            {...register("bmi")}
                             className="border border-blue-500  pl-3 py-3 shadow-sm bg-transparent rounded text-sm focus:ring-2 disabled:border-blue-500 focus:ring-blue-300 placeholder-gray-500 text-gray-700 "
                             placeholder="0"
                           />
@@ -577,10 +596,10 @@ const ProfileForm = ({ userData }) => {
                           />
                         </div>
                       </div>
-                      <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
+                      <div className="px-4 py-3 text-right sm:px-6">
                         <button
                           type="submit"
-                          className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                          className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium tracking-wide rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                         >
                           Save
                         </button>

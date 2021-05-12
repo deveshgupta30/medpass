@@ -48,7 +48,7 @@ const ImageUploader = ({ file, setFile, error, setError }) => {
           alt="profile pic"
         />
       ) : (
-        <div className="flex justify-center items-center  w-full h-full  bg-gray-300 dark:bg-blueGray-700 rounded-full">
+        <div className="flex justify-center items-center  w-full h-full  bg-gray-300 opacity-75 rounded-full">
           <svg
             className="w-full h-full fill-current text-white dark:text-blueGray-800 rounded-full"
             focusable="false"
@@ -80,7 +80,6 @@ const ImageUploader = ({ file, setFile, error, setError }) => {
           </svg>
         </div>
       </label>
-      {/* {error && <small className="error">{error}</small>} */}
     </div>
   );
 };

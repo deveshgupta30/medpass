@@ -3,6 +3,7 @@ import { requireAuth } from "../middleware/authMiddleware.js";
 import {
   getUserProfile,
   createUserProfile,
+  updateUserProfile,
 } from "../controller/userController.js";
 
 const router = Router();
