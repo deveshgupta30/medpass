@@ -4,26 +4,24 @@ import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
 import ImageUploader from "./ImageUploader";
 
-const ProfileForm = ({ userData }) => {
+const CreateProfile = ({ userData }) => {
   const { authState } = useContext(AuthContext);
 
-  const [file, setFile] = useState(userData.profilePic);
+  const [file, setFile] = useState("");
   const [imageError, setImageError] = useState("");
   const [error, setError] = useState({ isError: false, message: "" });
 
   const { userInfo, accessToken } = authState;
 
-  const updateProfileData = async (data) => {
+  const createProfileData = async (data) => {
     try {
       const res = await fetch("http://localhost:5000/profile/add", {
-        method: "PUT",
+        method: "POST",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${accessToken}`,
         },
         body: JSON.stringify({
-          name: data.name,
-          email: data.email,
           gender: data.gender,
           bloodGroup: data.bloodGroup,
           weight: data.weight,
@@ -56,9 +54,6 @@ const ProfileForm = ({ userData }) => {
   } = useForm({
     defaultValues: {
       ...userData,
-      dateOfBirth: userData.dateOfBirth
-        ? new Date(userData.dateOfBirth).toISOString().substr(0, 10)
-        : new Date().toISOString().substr(0, 10),
     },
   });
 
@@ -74,7 +69,7 @@ const ProfileForm = ({ userData }) => {
   }, [height, weight]);
 
   const onSubmitHandler = (data) => {
-    updateProfileData(data);
+    createProfileData(data);
   };
 
   return (
@@ -653,4 +648,4 @@ const ProfileForm = ({ userData }) => {
   );
 };
 
-export default ProfileForm;
+export default CreateProfile;

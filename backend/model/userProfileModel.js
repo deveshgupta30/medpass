@@ -5,7 +5,6 @@ const userProfileSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
     required: false,
-    unique: true,
   },
   gender: { type: String, enum: ["Male", "Female", "Other"], required: true },
   bloodGroup: {
@@ -20,6 +19,8 @@ const userProfileSchema = new mongoose.Schema({
   emergencyNumber2: { type: String },
   dateOfBirth: { type: Date, required: true },
   allergies: { type: String },
+  profilePic: { type: String },
+  address: { type: String, required: true },
 });
 
 const UserProfile = mongoose.model("UserProfile", userProfileSchema);

@@ -8,6 +8,7 @@ const getUserProfile = async (req, res, next) => {
       path: "userId",
       select: "name email",
     });
+
     res.json({
       name: userProfileData.userId.name,
       email: userProfileData.userId.email,
@@ -20,6 +21,8 @@ const getUserProfile = async (req, res, next) => {
       emergencyNumber2: userProfileData.emergencyNumber2,
       dateOfBirth: userProfileData.dateOfBirth,
       allergies: userProfileData.allergies,
+      profilePic: userProfileData.profilePic,
+      address: userProfileData.address,
     });
   } catch (err) {
     next(err);
@@ -38,20 +41,24 @@ const createUserProfile = async (req, res, next) => {
       emergencyNumber2,
       dateOfBirth,
       allergies,
+      profilePic,
+      address,
     } = req.body;
-    console.log({
-      gender,
-      bloodGroup,
-      weight,
-      height,
-      contactNumber,
-      emergencyNumber,
-      emergencyNumber2,
-      dateOfBirth,
-      allergies,
-    });
+    // console.log({
+    //   gender,
+    //   bloodGroup,
+    //   weight,
+    //   height,
+    //   contactNumber,
+    //   emergencyNumber,
+    //   emergencyNumber2,
+    //   dateOfBirth,
+    //   allergies,
+    //   address,
+    // });
+    res.json({ message: "Hello" });
     const newUserProfile = await UserProfile.create({
-      email: req.user.email,
+      userId: req.user._id,
       gender,
       bloodGroup,
       weight,
@@ -61,6 +68,8 @@ const createUserProfile = async (req, res, next) => {
       emergencyNumber2,
       dateOfBirth,
       allergies,
+      profilePic,
+      address,
     });
     // newUserProfile.userId = req.user._id;
     res.json({ ...newUserProfile._doc });
@@ -85,8 +94,10 @@ const updateUserProfile = async (req, res, next) => {
       emergencyNumber2,
       dateOfBirth,
       allergies,
+      profilePic,
+      address,
     } = req.body;
-    const updatedUserProfile = await userProfile.findByOne({ userId });
+    const updatedUserProfile = await UserProfile.findOne({ userId });
     updatedUserProfile.gender = gender;
     updatedUserProfile.bloodGroup = bloodGroup;
     updatedUserProfile.weight = weight;
@@ -96,8 +107,10 @@ const updateUserProfile = async (req, res, next) => {
     updatedUserProfile.emergencyNumber2 = emergencyNumber2;
     updatedUserProfile.dateOfBirth = dateOfBirth;
     updatedUserProfile.allergies = allergies;
+    updatedUserProfile.profilePic = profilePic;
+    updatedUserProfile.address = address;
     await updatedUserProfile.save();
-    const updatedUser = await User.findById({ _id: userId });
+    const updatedUser = await User.findById(userId);
     updatedUser.name = name;
     await updatedUser.save();
     res.json({ message: "User Profile Updated" });
@@ -119,4 +132,13 @@ const updateUserProfile = async (req, res, next) => {
   }
 };
 
-export { getUserProfile, createUserProfile, updateUserProfile };
+const getAllProfile = async (req, res, next) => {
+  try {
+    const allProfile = await User.find();
+    res.json({ allProfile });
+  } catch (err) {
+    next(err);
+  }
+};
+
+export { getUserProfile, createUserProfile, updateUserProfile, getAllProfile };

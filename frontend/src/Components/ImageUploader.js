@@ -1,8 +1,6 @@
 const ImageUploader = ({ file, setFile, error, setError }) => {
   const types = ["image/png", "image/jpeg", "image/jpg"];
-
   const reader = (image) => {
-    console.log({ image });
     return new Promise((resolve, reject) => {
       const fileReader = new FileReader();
       if (!types.includes(image.type)) {
@@ -30,7 +28,7 @@ const ImageUploader = ({ file, setFile, error, setError }) => {
     try {
       const dataUrl = await reader(selected);
       setFile(dataUrl);
-
+      setError(" ");
       //fetch post request to server to upload it
       console.log({ dataUrl });
     } catch (err) {
