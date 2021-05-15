@@ -135,7 +135,9 @@ const updateUserProfile = async (req, res, next) => {
 const getAllProfile = async (req, res, next) => {
   try {
     const allProfile = await User.find();
-    res.json({ allProfile });
+
+    const allProfileData = await UserProfile.find();
+    res.json({ allProfile, allProfileData });
   } catch (err) {
     next(err);
   }

@@ -11,5 +11,5 @@ module.exports = {
   variants: {
     extend: { borderColor: ["disabled"] },
   },
-  plugins: [],
+  plugins: [require("@tailwindcss/forms")],
 };
