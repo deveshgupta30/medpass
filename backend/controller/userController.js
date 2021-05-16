@@ -134,10 +134,15 @@ const updateUserProfile = async (req, res, next) => {
 
 const getAllProfile = async (req, res, next) => {
   try {
-    const allProfile = await User.find();
+    // const allProfile = await User.find();
 
-    const allProfileData = await UserProfile.find();
-    res.json({ allProfile, allProfileData });
+    const allProfileData = await UserProfile.find()
+      .populate({
+        path: "userId",
+        select: "name email role",
+      })
+      .sort({ userId: "desc" });
+    res.json({ allProfileData });
   } catch (err) {
     next(err);
   }
