@@ -1,9 +1,7 @@
-import path from "path";
+import colors from "colors";
 import express from "express";
 import dotenv from "dotenv";
-import cookieParser from "cookie-parser";
 import morgan from "morgan";
-import colors from "colors";
 import connectDb from "./config/db.js";
 import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
 import cors from "cors";

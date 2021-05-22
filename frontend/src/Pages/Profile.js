@@ -1,6 +1,5 @@
 import { useContext, useState, useEffect } from "react";
 import { Helmet } from "react-helmet";
-import { Link } from "react-router-dom";
 import Navbar from "../Components/Navbar";
 import { AuthContext } from "../Context/AuthContext";
 import ProfileForm from "../Components/ProfileForm";
@@ -18,7 +17,6 @@ const Profile = () => {
   const getProfileData = async (abortController, signal) => {
     try {
       setLoading(true);
-      console.log({ accessToken });
       const res = await fetch("http://localhost:5000/profile/", {
         method: "GET",
         headers: {
@@ -32,7 +30,6 @@ const Profile = () => {
       setLoading(false);
       if (res.ok) {
         setProfileData({ ...resData });
-        console.log({ resData });
       }
       if (!resData.success) {
         setError({ ...error, isError: true, message: resData.message });

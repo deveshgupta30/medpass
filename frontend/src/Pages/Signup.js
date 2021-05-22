@@ -10,9 +10,6 @@ import { ErrorMessage } from "@hookform/error-message";
 const Signup = () => {
   const { isAuthenticated, setAuthState } = useContext(AuthContext);
 
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState({ isError: false, message: "" });
 
@@ -56,11 +53,6 @@ const Signup = () => {
       abortController.abort();
     }
   };
-
-  // const handleFormSubmit = (e) => {
-  //   e.preventDefault();
-  //   signup(name, email, password);
-  // };
 
   const onSubmitHandler = (data) => {
     console.log({ data });

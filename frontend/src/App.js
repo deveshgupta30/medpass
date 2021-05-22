@@ -8,6 +8,7 @@ import Profile from "./Pages/Profile";
 import AuthRoute from "./Components/AuthRoute";
 import AdminRoute from "./Components/AdminRoute";
 import AdminPortal from "./Pages/AdminPortal";
+import Records from "./Pages/Records";
 
 export default function App() {
   return (
@@ -18,6 +19,7 @@ export default function App() {
         <AuthRoute path="/" exact component={Dashboard} />
         <AuthRoute path="/profile" exact component={Profile} />
         <AdminRoute path="/admin" exact component={AdminPortal} />
+        <AuthRoute path="/records" exact component={Records} />
         <Route component={Page404} />
       </Switch>
     </Router>

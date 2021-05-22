@@ -36,7 +36,6 @@ const CreateProfile = ({ userData }) => {
         }),
       });
 
-      const resData = await res.json();
       if (res.ok) {
         alert("Successfully updated");
       }
@@ -105,6 +104,7 @@ const CreateProfile = ({ userData }) => {
                           className="pb-2 text-sm font-bold text-gray-800 "
                         >
                           Full Name
+                          <sup className="text-red-500 text-sm ">⋆</sup>
                         </label>
                         <input
                           type="text"
@@ -176,6 +176,7 @@ const CreateProfile = ({ userData }) => {
                           className="pb-2 text-sm font-bold text-gray-800 "
                         >
                           Date of Birth
+                          <sup className="text-red-500 text-sm ">⋆</sup>
                         </label>
                         <input
                           type="date"
@@ -206,6 +207,7 @@ const CreateProfile = ({ userData }) => {
                           className="pb-2 text-sm font-bold text-gray-800 "
                         >
                           Contact Number
+                          <sup className="text-red-500 text-sm ">⋆</sup>
                         </label>
                         <input
                           type="tel"
@@ -245,6 +247,7 @@ const CreateProfile = ({ userData }) => {
                           className="pb-2 text-sm font-bold text-gray-800 "
                         >
                           Emergency Contact Number
+                          <sup className="text-red-500 text-sm ">⋆</sup>
                         </label>
                         <input
                           type="tel"
@@ -320,6 +323,7 @@ const CreateProfile = ({ userData }) => {
                           className="pb-2 text-sm font-bold text-gray-800 "
                         >
                           Present Address
+                          <sup className="text-red-500 text-sm ">⋆</sup>
                         </label>
                         <textarea
                           type="text"
@@ -381,6 +385,7 @@ const CreateProfile = ({ userData }) => {
                             className="pb-2 text-sm font-bold text-gray-800 dark:text-gray-100"
                           >
                             Blood Group
+                            <sup className="text-red-500 text-sm ">⋆</sup>
                           </label>
                           <div
                             className={`shadow-sm rounded flex flex-row justify-start items-center overflow-hidden relative ${
@@ -455,6 +460,7 @@ const CreateProfile = ({ userData }) => {
                             className="pb-2 text-sm font-bold text-gray-800 dark:text-gray-100"
                           >
                             Gender
+                            <sup className="text-red-500 text-sm ">⋆</sup>
                           </label>
                           <div
                             className={`shadow-sm rounded flex flex-row justify-start items-center overflow-hidden relative ${
@@ -522,6 +528,7 @@ const CreateProfile = ({ userData }) => {
                               className="pb-2 text-sm font-bold text-gray-800 "
                             >
                               Height
+                              <sup className="text-red-500 text-sm ">⋆</sup>
                             </label>
                             <input
                               type="number"
@@ -557,6 +564,7 @@ const CreateProfile = ({ userData }) => {
                               className="pb-2 text-sm font-bold text-gray-800 "
                             >
                               Weight
+                              <sup className="text-red-500 text-sm ">⋆</sup>
                             </label>
                             <input
                               type="number"

@@ -30,7 +30,6 @@ const ImageUploader = ({ file, setFile, error, setError }) => {
       setFile(dataUrl);
       setError(" ");
       //fetch post request to server to upload it
-      console.log({ dataUrl });
     } catch (err) {
       setError(err.message);
       console.error(err.message);

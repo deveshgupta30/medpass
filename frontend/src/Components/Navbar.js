@@ -6,7 +6,7 @@ import Logo from "./Logo";
 const Navbar = () => {
   const [open, setOpen] = useState(false);
 
-  const { logout } = useContext(AuthContext);
+  const { logout, isAdmin } = useContext(AuthContext);
 
   return (
     <header>
@@ -32,6 +32,28 @@ const Navbar = () => {
               open ? "flex" : "hidden"
             }  md:flex flex-col w-full md:flex-row py-3 space-y-5 md:space-y-0  md:space-x-8 md:w-auto`}
           >
+            {isAdmin() ? (
+              <li className="block ">
+                <NavLink
+                  to="/admin"
+                  className="font-medium"
+                  activeClassName="font-bold text-blue-500 underline"
+                >
+                  Admin
+                </NavLink>
+              </li>
+            ) : (
+              <></>
+            )}
+            <li className="block ">
+              <NavLink
+                to="/records"
+                className="font-medium"
+                activeClassName="font-bold text-blue-500 underline"
+              >
+                Records
+              </NavLink>
+            </li>
             <li className="block ">
               <NavLink
                 to="/profile"

@@ -98,21 +98,21 @@ const AdminPortal = () => {
           &nbsp;Search using name
         </div>
         <div>
-          <div className="flex items-center mx-auto px-4">
+          <div className="flex items-center mx-auto px-4 mb-7">
             <div className="w-screen">
               <table className="mx-auto max-w-4xl w-screen whitespace-nowrap rounded-lg bg-white divide-y divide-gray-300 overflow-hidden">
                 <thead className="bg-gray-50">
-                  <tr className="text-gray-600 text-center">
-                    <th className="font-semibold text-sm uppercase px-6 py-4">
+                  <tr className="text-gray-600 ">
+                    <th className="font-semibold text-left text-sm uppercase px-6 py-4">
                       Name
                     </th>
-                    <th className="font-semibold text-sm uppercase px-6 py-4">
+                    <th className="font-semibold text-left text-sm uppercase px-6 py-4">
                       Gender
                     </th>
-                    <th className="font-semibold text-sm uppercase px-6 py-4">
+                    <th className="font-semibold text-center text-sm uppercase px-6 py-4">
                       BloodGroup
                     </th>
-                    <th className="font-semibold text-sm uppercase px-6 py-4 ">
+                    <th className="font-semibold text-left text-sm uppercase px-6 py-4 ">
                       Contact Info
                     </th>
                   </tr>

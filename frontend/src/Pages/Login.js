@@ -9,8 +9,6 @@ import { ErrorMessage } from "@hookform/error-message";
 const Login = () => {
   const { setAuthState, isAuthenticated } = useContext(AuthContext);
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState({ isError: false, message: "" });
 
@@ -56,7 +54,6 @@ const Login = () => {
   // };
 
   const onSubmitHandler = (data) => {
-    console.log({ data });
     login(data.email, data.password);
   };
 
